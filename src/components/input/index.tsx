@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{memo} from 'react';
 import './style.css'
 interface IPropriedadesInput {
     onChangeText: (e: any) => void;
@@ -17,4 +17,4 @@ const Input = (props: IPropriedadesInput) => {
     />;
 }
 
-export default Input;
+export default memo(Input);

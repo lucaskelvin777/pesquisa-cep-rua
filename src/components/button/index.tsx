@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ memo} from 'react';
 import './style.css';
 interface IPropriedades{
     onclick?:()=>void,
@@ -14,4 +14,4 @@ const Button = (props:IPropriedades) => {
   );
 }
 
-export default Button;
+export default memo(Button);

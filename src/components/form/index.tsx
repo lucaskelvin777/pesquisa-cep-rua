@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, memo} from 'react';
 interface IPropriedadesForm {
     onSubmitForm: (e: any) => void,
     children: React.ReactNode,
@@ -13,4 +13,4 @@ const Form = (props: IPropriedadesForm) => {
     );
 }
 
-export default Form;
+export default (Form);

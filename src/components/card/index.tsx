@@ -18,4 +18,4 @@ const Card = (props:IPropriedadesCard) => {
   );
 }
 
-export default Card;
+export default (Card);

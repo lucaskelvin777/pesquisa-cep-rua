@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.css';
 import Button from './components/button';
 import Input from './components/input';
@@ -8,13 +8,14 @@ import Card from './components/card';
 import ICep from './Interfaces/ICep';
 import ClipLoader from "react-spinners/ClipLoader";
 import {Override} from './CssSpinner';
+import List from './components/ListDados';
 function App() {
   const [rua, setRua] = useState('');
-  const [uf, setUf] = useState('');
+  const [uf, setUf] = useState('AC');
   const [cidade, setCidade] = useState('');
   const [dados, setDados] = useState<ICep[]>([]);
   const [carregando, setCarregando] = useState(false);
-  function handleFormSubmit(e: any) {
+  const handleFormSubmit = (e: any)  => {
     e.preventDefault();
     let ruaArr: any = rua.split(' ');
     let ruaTratado: string = "";
@@ -41,10 +42,21 @@ function App() {
       <div className="bloco">
         <h3>Descubra aqui seu cep...</h3>
         <hr />
-        <Form onSubmitForm={handleFormSubmit} class="alinhar-centro">
-          <Input onChangeText={e => setRua(e.target.value)} value={rua} placeholder="Digite a rua" required />
-          <Input onChangeText={e => setCidade(e.target.value)} value={cidade} placeholder="Digite a sua cidade" required />
-          <Select onChangeText={e => setUf(e.target.value)} value={uf} required>
+        <Form 
+        onSubmitForm={handleFormSubmit} 
+        class="alinhar-centro">
+          <Input 
+          onChangeText={useCallback((e)=>{setRua(e.target.value) },[])} 
+          value={rua} placeholder="Digite a rua" 
+          required />
+          <Input 
+          onChangeText={useCallback((e)=>{setCidade(e.target.value)}, [])}
+           value={cidade}
+            placeholder="Digite a sua cidade" 
+            required />
+          <Select 
+          onChangeText={useCallback((e)=>{setUf(e.target.value)},[]) } 
+          value={uf} required>
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
             <option value="AP">Amapá</option>
@@ -87,15 +99,7 @@ function App() {
             loading={carregando}
           />
           : ''}
-        {dados.map(element => (
-          <Card key={element.cep} titulo={element.cep}>
-            <p>Bairro: {element.bairro}</p>
-            <p>Cidade: {element.localidade}</p>
-            <p>Rua: {element.logradouro}</p>
-            <p>Estado: {element.uf}</p>
-          </Card>
-
-        ))}
+        <List dados = {dados} />
       </div>
     </div>
   );
